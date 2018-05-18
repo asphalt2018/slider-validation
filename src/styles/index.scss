@@ -1,0 +1,194 @@
+.drag-wrapper {
+  width: 290px;
+  min-width: 220px;
+  height: 40px;
+  margin-left: 54px;
+  margin-top: 21px;
+  position: relative;
+}
+
+.drag-control {
+  position: relative;
+  height: 40px;
+  border-radius: 2px;
+  border: 1px solid #e4e7eb;
+  background-color: #f7f9fa;
+}
+
+.drag-arrow {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 40px;
+  height: 100%;
+  border-radius: 2px;
+  background-color: #fff;
+  box-shadow: 0 0 3px rgba(0, 0, 0, .3);
+  cursor: pointer;
+  transition: background .2s linear;
+}
+.drag-arrow-hover:hover{
+  background-color: #1991fa;
+}
+
+.moving-slider-bg {
+  background-color: #1991fa;
+}
+
+.drag-arrow-hover:hover .drag-icon {
+  background-image: url('../assets/captcha.png');
+  background-position: 0 -13px;
+  background-size: 34px 471px;
+}
+
+
+.drag-icon {
+  position: absolute;
+  top: 50%;
+  margin-top: -6px;
+  left: 50%;
+  margin-left: -6px;
+  width: 14px;
+  height: 10px;
+  background: url('../assets/captcha.png') 0 -26px;
+  background-size: 34px 471px;
+}
+.moving-icon{
+  background-image: url('../assets/captcha.png');
+  background-position: 0 -13px;
+  background-size: 34px 471px;
+}
+.success-icon {
+  background-image: url('../assets/captcha.png');
+  background-position: 0 0;
+  background-size: 34px 471px;
+}
+.fail-icon{
+  background-image: url('../assets/captcha.png');
+  background-position: 0 -83px;
+  background-size: 34px 471px;
+}
+.drag-tips {
+  text-align: center;
+  color: #45494c;
+  line-height: 40px;
+  font-size: 14px;
+}
+
+.captcha-wrapper {
+  position: relative;
+  padding-top: 50%;
+}
+.captcha-panel {
+  position: absolute;
+  bottom: 40px;
+  left: 0;
+  width: 100%;
+  padding-bottom: 15px;
+  z-index: 999;
+  transition: visibility 0.35s;
+  visibility: hidden;
+}
+.captcha-image {
+  position: absolute;
+  margin-top: -115px;
+  transition: all 0.35s;
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(0);
+}
+.show-panel {
+  visibility: visible;
+}
+.show-captcha{
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(-25px);
+}
+.slide-image {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: auto;
+  height: 100%;
+}
+.slider-left{
+  position: absolute;
+  width: 0;
+  left: 0;
+  height: 38px;
+  border-radius: 2px;
+  border: 1px solid transparent;
+}
+.moving-slider-left{
+  border-color:  #1991fa;
+  border-right: none;
+  background-color: #d1e9fe;
+}
+.verify-success{
+  border-color: #52ccba;
+  background-color: #d2f4ef;
+}
+.success-slider-bg{
+  background-color: #52ccba;
+}
+.fail-slider-bg{
+  background-color: #f7797a;
+}
+.verify-fail{
+  border-color: #f7797a;
+  background-color: #fde1e1;
+}
+.can-animate {
+  transition: left 0.2s ease-out
+}
+.refresh-icon {
+  position: absolute;
+  right: 0;
+  top: 0;
+  width: 34px;
+  height: 34px;
+  cursor: pointer;
+  background-image: url('../assets/captcha.png');
+  background-position: 0 -437px;
+  background-size: 34px 471px;
+}
+.refresh-icon:hover{
+  background-image: url('../assets/captcha.png');
+  background-position: 0 -400px;
+  background-size: 34px 471px;
+}
+.is-validating{
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 34px;
+  height: 34px;
+  cursor: pointer;
+  background-image: url('../assets/captcha.png');
+  background-position: 0 -182px;
+  background-size: 34px 471px;
+  animation-name: rotate;
+  animation-duration: 0.5s;
+  animation-iteration-count: infinite;
+}
+@keyframes rotate {
+  from {
+    transform: rotate(0deg);
+  }
+  to{
+    transform: rotate(360deg);
+  }
+}
+.loading-captcha{
+  background-color: #dedede;
+  width: 290px;
+  height: 145px;
+}
+.captcha-loading-text{
+  top: 52%;
+  position: absolute;
+  left: 50%;
+  margin-left: -35px;
+  font-size: 14px;
+}
