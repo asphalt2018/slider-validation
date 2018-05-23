@@ -5,7 +5,10 @@ axios.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded
 
 export default class Request {
   public static async get(url: string, params?: object): Promise<AxiosResponse> {
-    const urlStr = url + (Object.keys(params).length ? '?' : '') + this.translateParams(params);
+    let urlStr = url;
+    if (Object.prototype.toString.call(params) === '[object Object]') {
+      urlStr = url + (Object.keys(params).length ? '?' : '') + this.translateParams(params);
+    }
     const parameters: AxiosRequestConfig = {
       url: urlStr,
       method: 'get'

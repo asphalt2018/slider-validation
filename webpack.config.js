@@ -1,6 +1,6 @@
-var webpack = require('webpack');
-var path = require('path');
-var webpackConfig = {
+const webpack = require('webpack');
+const path = require('path');
+const webpackConfig = {
   entry: './src/index.ts',
   output: {
     filename: process.env.NODE_ENV === "development" ? 'slider-validation.js' : 'slider-validation.min.js',
@@ -10,7 +10,7 @@ var webpackConfig = {
     libraryTarget: 'umd'
   },
   resolve: {
-    extensions: [".tsx", ".ts", ".js", ".scss"]
+    extensions: [".ts", ".tsx", ".js", ".scss"]
   },
   module: {
     rules: [
@@ -28,18 +28,16 @@ var webpackConfig = {
       },
       {
         test: /\.scss$/,
-        use: [{
-          loader: "style-loader" // creates style nodes from JS strings
-        }, {
-          loader: "typings-for-css-modules-loader?modules&sass"
-        }, {
-          loader: "sass-loader" // compiles Sass to CSS
-        }]
+        use: [
+          "style-loader",
+          "css-loader",
+          "sass-loader"
+        ]
       }
     ]
   },
   plugins: [
-    new webpack.DefinePlugin({'process.env': process.env.NODE_ENV === "development" ? {NODE_ENV: '"development"'} : {NODE_ENV: '"production"'}}),
+    new webpack.DefinePlugin({'process.env': process.env.NODE_ENV === "development" ? {NODE_ENV: '"development"'} : {NODE_ENV: '"production"'}})
   ]
 };
 if (process.env.NODE_ENV === "production") {

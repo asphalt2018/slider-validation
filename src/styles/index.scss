@@ -1,3 +1,6 @@
+$blue_color: #1991fa;
+$success_color: #52ccba;
+$fail_color: #f7797a;
 .drag-wrapper {
   width: 290px;
   min-width: 220px;
@@ -5,6 +8,7 @@
   margin-left: 54px;
   margin-top: 21px;
   position: relative;
+  display: inline-block;
 }
 
 .drag-control {
@@ -28,11 +32,11 @@
   transition: background .2s linear;
 }
 .drag-arrow-hover:hover{
-  background-color: #1991fa;
+  background-color: $blue_color;
 }
 
 .moving-slider-bg {
-  background-color: #1991fa;
+  background-color: $blue_color;
 }
 
 .drag-arrow-hover:hover .drag-icon {
@@ -79,6 +83,9 @@
   position: relative;
   padding-top: 50%;
 }
+.background-image {
+  width: 290px;
+}
 .captcha-panel {
   position: absolute;
   bottom: 40px;
@@ -105,12 +112,17 @@
   visibility: visible;
   transform: translateY(-25px);
 }
-.slide-image {
+.slider-image {
   position: absolute;
   left: 0;
   top: 0;
   width: auto;
   height: 100%;
+  user-select: none;
+}
+img {
+  vertical-align: middle;
+  user-select: none;
 }
 .slider-left{
   position: absolute;
@@ -121,22 +133,22 @@
   border: 1px solid transparent;
 }
 .moving-slider-left{
-  border-color:  #1991fa;
+  border-color: $blue_color;
   border-right: none;
   background-color: #d1e9fe;
 }
 .verify-success{
-  border-color: #52ccba;
+  border-color: $success_color;
   background-color: #d2f4ef;
 }
 .success-slider-bg{
-  background-color: #52ccba;
+  background-color: $success_color;
 }
 .fail-slider-bg{
-  background-color: #f7797a;
+  background-color: $fail_color;
 }
 .verify-fail{
-  border-color: #f7797a;
+  border-color: $fail_color;
   background-color: #fde1e1;
 }
 .can-animate {
