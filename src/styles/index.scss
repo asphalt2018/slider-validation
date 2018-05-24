@@ -31,7 +31,8 @@ $fail_color: #f7797a;
   cursor: pointer;
   transition: background .2s linear;
 }
-.drag-arrow-hover:hover{
+
+.drag-arrow-hover:hover {
   background-color: $blue_color;
 }
 
@@ -40,11 +41,9 @@ $fail_color: #f7797a;
 }
 
 .drag-arrow-hover:hover .drag-icon {
-  background-image: url('../assets/captcha.png');
-  background-position: 0 -13px;
+  background: url('../assets/captcha.png') 0 -13px;
   background-size: 34px 471px;
 }
-
 
 .drag-icon {
   position: absolute;
@@ -57,21 +56,22 @@ $fail_color: #f7797a;
   background: url('../assets/captcha.png') 0 -26px;
   background-size: 34px 471px;
 }
-.moving-icon{
-  background-image: url('../assets/captcha.png');
-  background-position: 0 -13px;
+
+.moving-icon {
+  background: url('../assets/captcha.png') 0 -13px;
   background-size: 34px 471px;
 }
+
 .success-icon {
-  background-image: url('../assets/captcha.png');
-  background-position: 0 0;
+  background: url('../assets/captcha.png') 0 0;
   background-size: 34px 471px;
 }
-.fail-icon{
-  background-image: url('../assets/captcha.png');
-  background-position: 0 -83px;
+
+.fail-icon {
+  background: url('../assets/captcha.png') 0 -83px;
   background-size: 34px 471px;
 }
+
 .drag-tips {
   text-align: center;
   color: #45494c;
@@ -83,9 +83,11 @@ $fail_color: #f7797a;
   position: relative;
   padding-top: 50%;
 }
+
 .background-image {
   width: 290px;
 }
+
 .captcha-panel {
   position: absolute;
   bottom: 40px;
@@ -96,6 +98,7 @@ $fail_color: #f7797a;
   transition: visibility 0.35s;
   visibility: hidden;
 }
+
 .captcha-image {
   position: absolute;
   margin-top: -115px;
@@ -104,14 +107,17 @@ $fail_color: #f7797a;
   visibility: hidden;
   transform: translateY(0);
 }
+
 .show-panel {
   visibility: visible;
 }
-.show-captcha{
+
+.show-captcha {
   opacity: 1;
   visibility: visible;
   transform: translateY(-25px);
 }
+
 .slider-image {
   position: absolute;
   left: 0;
@@ -120,11 +126,13 @@ $fail_color: #f7797a;
   height: 100%;
   user-select: none;
 }
+
 img {
   vertical-align: middle;
   user-select: none;
 }
-.slider-left{
+
+.slider-left {
   position: absolute;
   width: 0;
   left: 0;
@@ -132,28 +140,35 @@ img {
   border-radius: 2px;
   border: 1px solid transparent;
 }
-.moving-slider-left{
+
+.moving-slider-left {
   border-color: $blue_color;
   border-right: none;
   background-color: #d1e9fe;
 }
-.verify-success{
+
+.verify-success {
   border-color: $success_color;
   background-color: #d2f4ef;
 }
-.success-slider-bg{
+
+.success-slider-bg {
   background-color: $success_color;
 }
-.fail-slider-bg{
+
+.fail-slider-bg {
   background-color: $fail_color;
 }
-.verify-fail{
+
+.verify-fail {
   border-color: $fail_color;
   background-color: #fde1e1;
 }
+
 .can-animate {
   transition: left 0.2s ease-out
 }
+
 .refresh-icon {
   position: absolute;
   right: 0;
@@ -161,43 +176,45 @@ img {
   width: 34px;
   height: 34px;
   cursor: pointer;
-  background-image: url('../assets/captcha.png');
-  background-position: 0 -437px;
+  background: url('../assets/captcha.png') 0 -437px;
   background-size: 34px 471px;
 }
-.refresh-icon:hover{
-  background-image: url('../assets/captcha.png');
-  background-position: 0 -400px;
+
+.refresh-icon:hover {
+  background: url('../assets/captcha.png') 0 -400px;
   background-size: 34px 471px;
 }
-.is-validating{
+
+.is-validating {
   position: absolute;
   left: 0;
   top: 0;
   width: 34px;
   height: 34px;
   cursor: pointer;
-  background-image: url('../assets/captcha.png');
-  background-position: 0 -182px;
+  background: url('../assets/captcha.png') 0 -182px;
   background-size: 34px 471px;
   animation-name: rotate;
   animation-duration: 0.5s;
   animation-iteration-count: infinite;
 }
+
 @keyframes rotate {
   from {
     transform: rotate(0deg);
   }
-  to{
+  to {
     transform: rotate(360deg);
   }
 }
-.loading-captcha{
+
+.loading-captcha {
   background-color: #dedede;
   width: 290px;
   height: 145px;
 }
-.captcha-loading-text{
+
+.captcha-loading-text {
   top: 52%;
   position: absolute;
   left: 50%;

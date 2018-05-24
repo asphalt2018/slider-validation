@@ -1,18 +1,18 @@
-import './styles/index.scss'
-import Request from './helpers/request'
-import Utils from './helpers/utils'
-import {htmlTemplate} from './helpers/constants'
+import './styles/index.scss';
+import Request from './helpers/request';
+import Utils from './helpers/utils';
+import {htmlTemplate} from './helpers/constants';
 
 export interface SliderOptions {
-  wrapperId: string,
-  width?: number
+  wrapperId: string;
+  width?: number;
 }
 
 const defaultOptions: SliderOptions = {
   wrapperId: 'sliderWrapper',
   width: 290
 };
-declare type status = 'fail' | 'success' | 'initialState'
+declare type status = 'fail' | 'success' | 'initialState';
 
 enum VerifyStatus {Fail, Success, InitialState}
 
@@ -31,8 +31,7 @@ export class SliderValidation {
   constructor(options: SliderOptions = defaultOptions) {
     document.getElementById(options.wrapperId).innerHTML = htmlTemplate;
     this.addEventListeners();
-    this.dealDrag()
-
+    this.dealDrag();
   }
 
   private addEventListeners(): void {
@@ -42,18 +41,46 @@ export class SliderValidation {
       }
     });
     document.getElementById('drag-control').addEventListener('mouseenter', () => {
-      if (this.verifyStatus === VerifyStatus.Success || this.isValidating) return;
+      if (this.verifyStatus === VerifyStatus.Success || this.isValidating) {
+        return;
+      }
       this.toggleCaptcha(true);
     });
 
     document.getElementById('drag-arrow').addEventListener('mousedown', (event) => {
-      if (this.verifyStatus === VerifyStatus.Success || this.isValidating) {
-        return
+      if (this.verifyStatus === VerifyStatus.Success || this.isValidating || this.isLoadingCaptcha) {
+        return;
       }
       this.startPos = event.pageX;
       this.toggleMovingState(true);
     });
-    this.getCaptcha()
+    document.getElementsByClassName('refresh-icon')[0].addEventListener('click', (e: MouseEvent) => {
+      this.getCaptcha();
+    });
+    this.getCaptcha();
+  }
+
+  private dealDrag() {
+    document.onmousemove = (event) => {
+      if (this.verifyStatus === VerifyStatus.Success || this.isValidating) {
+        return;
+      }
+      if (this.isMoving) {
+        const travelledDistance = event.pageX - this.startPos;
+        if (travelledDistance > 0 && travelledDistance <= this.maxRailDistance) {
+          this.left = travelledDistance;
+          this.setStyle(this.left);
+        }
+      }
+    };
+    document.onmouseup = () => {
+      if (this.verifyStatus === VerifyStatus.Success || this.isValidating) {
+        return;
+      }
+      if (this.isMoving) {
+        this.validateCaptcha({range: this.left / 250 * 100, token: this.token});
+      }
+    };
   }
 
   private toggleCaptcha(flag: boolean): void {
@@ -63,16 +90,18 @@ export class SliderValidation {
 
   private async getCaptcha() {
     try {
+      this.toggleLoadingCaptcha(true);
       const {data} = await Request.get(this.getCaptchaUrl);
+      this.toggleLoadingCaptcha(false);
       if (data.code === 1 && data.data) {
         document.getElementsByClassName('background-image')[0].setAttribute('src', data.data.bg);
         document.getElementsByClassName('slider-image')[0].setAttribute('src', data.data.front);
         this.token = data.data.token;
       } else {
-        console.warn('get captcha fail')
+        console.warn('get captcha fail');
       }
     } catch (e) {
-      console.error(e)
+      console.error(e);
     }
   }
 
@@ -84,12 +113,12 @@ export class SliderValidation {
       this.toggleValidatingState(false);
       if (data.code === 1) {
         this.toggleCaptcha(false);
-        this.toggleVerifyStatus(VerifyStatus.Success)
+        this.toggleVerifyStatus(VerifyStatus.Success);
       } else {
         this.toggleVerifyStatus(VerifyStatus.Fail);
         this.toggleCanAnimate(true);
         setTimeout(() => {
-          this.toggleCanAnimate(false)
+          this.toggleCanAnimate(false);
         }, 500);
         setTimeout(() => {
           this.toggleVerifyStatus(VerifyStatus.InitialState);
@@ -97,30 +126,10 @@ export class SliderValidation {
           this.setStyle(this.left);
         }, 300);
         this.getCaptcha();
-        console.warn('validate captcha fail')
+        console.warn('validate captcha fail');
       }
     } catch (e) {
-      console.error(e)
-    }
-  }
-
-
-  private dealDrag() {
-    document.onmousemove = (event) => {
-      if (this.verifyStatus === VerifyStatus.Success || this.isValidating) return;
-      if (this.isMoving) {
-        let travelledDistance = event.pageX - this.startPos;
-        if (travelledDistance > 0 && travelledDistance <= this.maxRailDistance) {
-          this.left = travelledDistance;
-          this.setStyle(this.left);
-        }
-      }
-    };
-    document.onmouseup = () => {
-      if (this.verifyStatus === VerifyStatus.Success || this.isValidating) return;
-      if (this.isMoving) {
-        this.validateCaptcha({range: this.left / 250 * 100, token: this.token})
-      }
+      console.error(e);
     }
   }
 
@@ -142,10 +151,10 @@ export class SliderValidation {
     ];
     if (isMoving) {
       Utils.addClass(options);
-      document.getElementById('tips-text').style.display = 'none'
+      document.getElementById('tips-text').style.display = 'none';
     } else {
       Utils.removeClass(options);
-      document.getElementById('tips-text').style.display = this.verifyStatus === VerifyStatus.InitialState ? '' : 'none'
+      document.getElementById('tips-text').style.display = this.verifyStatus === VerifyStatus.InitialState ? '' : 'none';
     }
   }
 
@@ -158,12 +167,12 @@ export class SliderValidation {
 
   private toggleValidatingState(isValidating: boolean) {
     this.isValidating = isValidating;
-    document.getElementById('is-validating').style.display = `${isValidating ? 'block' : 'none'}`
+    document.getElementById('is-validating').style.display = `${isValidating ? 'block' : 'none'}`;
   }
 
   private toggleVerifyStatus(verifyStatus: VerifyStatus) {
     this.verifyStatus = verifyStatus;
-    let options = [
+    const options = [
       {
         element: document.getElementsByClassName('slider-left')[0],
         className: ''
@@ -182,7 +191,11 @@ export class SliderValidation {
       options[1].className = 'success-slider-bg';
       options[2].className = 'success-icon';
       Utils.addClass(options);
-      document.getElementById('tips-text').style.display = 'none'
+      Utils.removeClass([{
+        element: document.getElementsByClassName('drag-arrow')[0],
+        className: 'drag-arrow-hover'
+      }]);
+      document.getElementById('tips-text').style.display = 'none';
     } else if (this.verifyStatus === VerifyStatus.Fail) {
       options[0].className = 'verify-fail';
       options[1].className = 'fail-slider-bg';
@@ -202,9 +215,22 @@ export class SliderValidation {
       className: 'can-animate'
     }];
     if (canAnimate) {
-      Utils.addClass(options)
+      Utils.addClass(options);
     } else {
-      Utils.removeClass(options)
+      Utils.removeClass(options);
+    }
+  }
+
+  private toggleLoadingCaptcha(isLoadingCaptcha: boolean) {
+    this.isLoadingCaptcha = isLoadingCaptcha;
+    if (isLoadingCaptcha) {
+      document.getElementById('loading-captcha').style.display = '';
+      document.getElementById('background-image').style.display = 'none';
+      document.getElementById('slider-image').style.display = 'none';
+    } else {
+      document.getElementById('loading-captcha').style.display = 'none';
+      document.getElementById('background-image').style.display = '';
+      document.getElementById('slider-image').style.display = '';
     }
   }
 }

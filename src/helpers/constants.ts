@@ -3,9 +3,13 @@ export const htmlTemplate: string =
     '<div class="captcha-panel">' +
       '<div class="captcha-wrapper">' +
         '<div class="captcha-image">' +
-          '<img class="background-image">' +
+          '<img id="background-image" class="background-image">' +
           '<img id="slider-image" class="slider-image" style="left: 0;">' +
-          '<div class="refresh-icon" style=""></div>' +
+          '<div class="refresh-icon"></div>' +
+          '<div id="loading-captcha" class="loading-captcha" style="display: none">' +
+          '<div class="is-validating" style="left: 50%;top: 50%;margin-left: -17px;margin-top: -34px"></div>' +
+          '<div class="captcha-loading-text">图片加载中..</div>' +
+          '</div>' +
         '</div>' +
       '</div>' +
     '</div>' +

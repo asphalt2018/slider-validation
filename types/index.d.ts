@@ -16,13 +16,14 @@ export declare class SliderValidation {
     private maxRailDistance;
     constructor(options?: SliderOptions);
     private addEventListeners();
+    private dealDrag();
     private toggleCaptcha(flag);
     private getCaptcha();
     private validateCaptcha(params);
-    private dealDrag();
     private toggleMovingState(isMoving);
     private setStyle(left);
     private toggleValidatingState(isValidating);
     private toggleVerifyStatus(verifyStatus);
     private toggleCanAnimate(canAnimate);
+    private toggleLoadingCaptcha(isLoadingCaptcha);
 }
